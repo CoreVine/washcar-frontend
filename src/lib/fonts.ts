@@ -9,7 +9,7 @@ export const RubikFont = Rubik({
 })
 
 export function loadFont(language: string | undefined) {
-  return language === "ar" ? RubikFont : InterFont
+  return language === "ar" ? RubikFont.className : InterFont.className
 }
 
 export function loadPageDirection(language: string | undefined) {

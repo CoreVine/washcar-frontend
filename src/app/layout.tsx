@@ -1,10 +1,10 @@
-import { loadFont, loadPageDirection } from "@/lib/fonts"
 import "./globals.css"
+
+import { loadFont, loadPageDirection } from "@/lib/fonts"
+import { getLocale, getMessages } from "next-intl/server"
 
 import { AuthProvider, ReactQueryClientProvider, StoreProvider } from "@/providers"
 import { NextIntlClientProvider } from "next-intl"
-import { getLocale, getMessages } from "next-intl/server"
-import { Toaster } from "@/components/ui/toaster"
 import { ToastContainer } from "react-toastify"
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +20,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ReactQueryClientProvider>
             <AuthProvider value={user}>
               <StoreProvider>{children}</StoreProvider>
-              <Toaster />
               <ToastContainer />
             </AuthProvider>
           </ReactQueryClientProvider>

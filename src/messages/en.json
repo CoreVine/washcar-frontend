@@ -1,3 +1,30 @@
 {
-  "welcome": "Welcome to the app"
+  "welcome": "Welcome to the app",
+  "english": "English",
+  "arabic": "Arabic",
+  "login": "Login",
+  "register": "Register",
+
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password?",
+
+  "navbar": {
+    "home": "Home",
+    "services": "Services",
+    "market": "Market",
+    "myOrders": "My Orders",
+    "myAccount": "My Account"
+  },
+  "registerPage": {
+    "title": "Start Your Journey with Wash Car!",
+    "subtitle": "\"Register for car wash services, cleaning vehicle rentals, and car care products.\"",
+    "alreadyHaveAnAccount": "Already have an account?"
+  },
+  "loginPage": {
+    "title": "Welcome Back to Wash Car!",
+    "subtitle": "Login to easily access our services and enjoy an exceptional experience for your car.",
+    "dontHaveAnAccount": "Don't have an account?"
+  }
 }

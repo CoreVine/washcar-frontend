@@ -5,6 +5,7 @@
 
 :root {
   --radius: 0.625rem;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -70,6 +71,13 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@theme {
+  --color-main-gray: #f2f2f2;
+  --color-main: #0077ff;
+  --color-text-gray: #28282866;
+  --color-main-black: #282828;
 }
 
 @theme inline {

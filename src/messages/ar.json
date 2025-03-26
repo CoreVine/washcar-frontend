@@ -1,3 +1,30 @@
 {
-  "welcome": "Welcome to the app"
+  "welcome": "Welcome to the app",
+  "english": "اللغة الانجليزية",
+  "arabic": "اللغة العربية",
+  "login": "تسجيل الدخول",
+  "register": "حساب جديد",
+
+  "name": "الاسم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgotPassword": "نسيت كلمة المرور؟",
+
+  "navbar": {
+    "home": "الصفحة الرئيسية",
+    "services": "الخدمات",
+    "market": "المتجر",
+    "myOrders": "طلباتي",
+    "myAccount": "حسابي"
+  },
+  "registerPage": {
+    "title": "ابدأ رحلتك مع واش كار!",
+    "subtitle": "\"سجل لخدمات غسيل السيارات، تنظيف سيارات الإيجار، ومنتجات العناية بالسيارات.\"",
+    "alreadyHaveAnAccount": "لديك حساب بالفعل؟"
+  },
+  "loginPage": {
+    "title": "مرحبًا بك مرة أخرى في واش كار!",
+    "subtitle": "تسجيل الدخول للوصول بسهولة إلى خدماتنا والاستمتاع بتجربة استثنائية لسيارتك.",
+    "dontHaveAnAccount": "ليس لديك حساب؟"
+  }
 }

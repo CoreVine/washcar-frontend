@@ -16,7 +16,7 @@ export type ApiError<T> = {
   errors?: Record<string, string[]>
 }
 
-export type Language = "ar" | "en" | "fr"
+export type TLanguage = "ar" | "en"
 
 export type Timestamps = {
   created_at: Date

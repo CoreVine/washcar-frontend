@@ -4,11 +4,49 @@
   "arabic": "Arabic",
   "login": "Login",
   "register": "Register",
-
+  "search": "Search",
+  "ads": "Ads",
   "name": "Name",
   "email": "Email",
   "password": "Password",
   "forgotPassword": "Forgot Password?",
+  "verifyEmail": "Verify Email",
+  "confirmPassword": "Confirm Password",
+  "newPassword": "New Password",
+  "updatePassword": "Update Password",
+  "phoneNumber": "Phone Number",
+  "address": "Address",
+  "profile": "Profile",
+  "logout ": "Logout",
+
+  "addToCart": "Add to Cart",
+  "rentalDays": "Rental Days",
+  "dayPrice": "Day Price",
+  "days": "Days",
+  "total": "Total",
+  "dateFrom": "Date From",
+  "dateTo": "Date To",
+  "month": "Month",
+  "year": "Year",
+  "day": "Day",
+  "dummyProductDescription": "A car wash is a specialized facility that offers cleaning and maintenance services for various types of vehicles. The primary goal is to remove dirt, dust, and grime from the vehicle's exterior while also ensuring the interior is clean and well-maintained. Car washes are a convenient solution for vehicle owners seeking comprehensive and high-quality cleaning services.",
+  "quantity": "Quantity",
+  "itemPrice": "Item Price",
+  "cardNumber": "Card Number",
+  "expiryDate": "Expiry Date",
+  "cvv": "CVV",
+  "payNow": "Pay Now",
+  "cancel": "Cancel",
+  "Iacknowledge": "I acknowledge that I have read and agree to the",
+  "cart": "Cart",
+
+  "home": "Home",
+  "services": "Services",
+  "products": "Products",
+
+  "carWash": "Car Wash",
+  "rentCar": "Rent a Car",
+  "buyACar": "Buy a Car",
 
   "navbar": {
     "home": "Home",
@@ -19,12 +57,27 @@
   },
   "registerPage": {
     "title": "Start Your Journey with Wash Car!",
-    "subtitle": "\"Register for car wash services, cleaning vehicle rentals, and car care products.\"",
+    "subtitle": "Register for car wash services, cleaning vehicle rentals, and car care products.",
     "alreadyHaveAnAccount": "Already have an account?"
   },
   "loginPage": {
     "title": "Welcome Back to Wash Car!",
     "subtitle": "Login to easily access our services and enjoy an exceptional experience for your car.",
     "dontHaveAnAccount": "Don't have an account?"
-  }
+  },
+  "verifyEmailPage": {
+    "title": "Verify Your Email",
+    "subtitle": "We’ve sent a verification code to your email. Please enter the code below to confirm your identity and proceed.",
+    "didntGetTheCode": "Didn’t get the code?",
+    "resendTheCode": "Resend the code"
+  },
+  "resetPasswordPage": {
+    "title": "Reset Your Password",
+    "subtitle": "Easily update your account password to ensure your security and access. Enter a new password and confirm it to proceed."
+  },
+  "sendResetCode": {
+    "title": "It seems you forgot your password",
+    "subtitle": " Please enter your email address so we can help you reset it."
+  },
+  "noDataAvailable": "No data available"
 }

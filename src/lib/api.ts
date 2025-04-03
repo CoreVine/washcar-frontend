@@ -10,9 +10,7 @@ export const responseCodes = {
 
 export function loadDefaultHeaders(token?: string, rest?: Record<string, string>): any {
   return {
-    Accept: "application/json",
     Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
     ...rest
   }
 }

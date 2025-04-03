@@ -1,3 +1,11 @@
+import { getTranslations } from "next-intl/server"
+import { getUser } from "@/actions/auth"
+import { redirect } from "next/navigation"
+
+import LoginForm from "./_components/login-form"
+
+import routes from "@/lib/route"
+
 export const generateMetadata = async () => {
   const t = await getTranslations()
   return {
@@ -6,14 +14,9 @@ export const generateMetadata = async () => {
   }
 }
 
-import { Metadata } from "next"
-import LoginForm from "./_components/login-form"
-import { getTranslations } from "next-intl/server"
+export default async function Page() {
+  const user = await getUser()
+  if (user) return redirect(routes.myAccount)
 
-export default function Page() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  )
+  return <LoginForm />
 }

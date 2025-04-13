@@ -1,9 +1,10 @@
 "use server"
 
 import { getRequest } from "@/lib/axios"
+import { cookies } from "next/headers"
+
 import { LANGUAGE_COOKIE } from "@/lib/constants"
 import { Ad } from "@/types/models"
-import { cookies } from "next/headers"
 
 export async function getLanguage(): Promise<string> {
   const language = (await cookies()).get(LANGUAGE_COOKIE)?.value

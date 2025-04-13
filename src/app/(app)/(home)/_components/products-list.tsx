@@ -17,11 +17,11 @@ export default function HomeProductsList() {
       <p className='text-lg'>{t("products")}</p>
       <LoadingState loading={isProductsLoading} />
 
-      {products && products.length === 0 ? (
+      {products?.data && products?.data.length === 0 ? (
         <NoDataLabel />
       ) : (
         <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
-          {products?.map((product) => (
+          {products?.data?.map((product) => (
             <ProductCard key={`product-card-${product.product_id}`} id={product.product_id} title={product.product_name} subtitle={product.price} image={product.images?.[0].image_url ?? DEFAULT_USER_IMAGE} />
           ))}
         </section>

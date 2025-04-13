@@ -1,6 +1,7 @@
 "use server"
 
 import { getRequest } from "@/lib/axios"
+import { PaginatedData } from "@/types/default"
 import { Product } from "@/types/models"
 
 import { build } from "search-params"
@@ -8,8 +9,8 @@ import { build } from "search-params"
 export async function getProducts(params: Record<string, string> = {}) {
   try {
     const sp = build(params)
-    const res = await getRequest<{ data: Product[] }>(`/products?${sp}`)
-    const data = res.data.data
+    const res = await getRequest<PaginatedData<Product>>(`/products?${sp}`)
+    const data = res.data
     return data
   } catch (error) {
     console.error("Error fetching products:", error)

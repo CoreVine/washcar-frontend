@@ -57,3 +57,24 @@ export type Product = Timestamps & {
     logo_url: string
   }
 }
+
+export type WashCarType = {
+  type_id: number
+  company_id: number
+  name: string
+  price: number
+  description: string
+}
+
+export type Company = Timestamps & {
+  company_id: number
+  company_name: string
+  email: string
+  phone_number: string
+  location: string
+  logo_url: string
+  approved: boolean
+  about: string
+  total_rating: number
+  wash_types: WashCarType[]
+}

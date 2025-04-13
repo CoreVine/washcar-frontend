@@ -24,3 +24,13 @@ export type Timestamps = {
 
 export type LoginData = z.infer<typeof LoginSchema>
 export type RegisterData = z.infer<typeof RegisterSchema>
+
+export type PaginatedData<T> = {
+  page: number
+  nextPage: number | null
+  lastPage: number | null
+  itemCount: number
+  totalPages: number
+  totalItems: number
+  data: T[]
+}

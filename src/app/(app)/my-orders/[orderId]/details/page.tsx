@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 import { ChevronLeft } from "lucide-react"
-import ServiceCard from "../../../services/_components/car-wash-service-card"
+import ServiceCard from "../../../services/_components/company-card"
 
 export default function CarWashDetail() {
   const [washItems, setWashItems] = useState(
@@ -35,11 +35,8 @@ export default function CarWashDetail() {
 
           <div className='rounded-xl bg-main-gray p-4 text-sm text-gray-600 mt-4'>
             <p>
-              A car wash is a specialized facility that offers cleaning and maintenance services for
-              various types of vehicles. The primary goal is to remove dirt, dust, and grime from
-              the vehicle's exterior while also ensuring the interior is clean and well-maintained.
-              Car washes are a convenient solution for vehicle owners seeking comprehensive and
-              high-quality cleaning services.
+              A car wash is a specialized facility that offers cleaning and maintenance services for various types of vehicles. The primary goal is to remove dirt, dust, and grime from the vehicle's exterior while also ensuring the interior is clean and well-maintained. Car washes are a convenient
+              solution for vehicle owners seeking comprehensive and high-quality cleaning services.
             </p>
           </div>
         </div>

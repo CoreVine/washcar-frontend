@@ -1,8 +1,9 @@
-import { getTranslations } from "next-intl/server"
 import MarketSearch from "./_components/search"
 import MarketCategoriesList from "./_components/categories-list"
-import MarketAdsImages from "./_components/ads"
 import MarketProductsList from "./_components/products-list"
+
+import { getTranslations } from "next-intl/server"
+import { AdsList } from "@/components/common/ads"
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
@@ -18,7 +19,7 @@ export default function Page() {
       <section className='space-y-8'>
         <MarketSearch />
         <MarketCategoriesList />
-        <MarketAdsImages />
+        <AdsList />
         <MarketProductsList />
       </section>
     </div>

@@ -9,7 +9,7 @@ export function useProducts(params: Record<string, string> = {}) {
     queryFn: ({ queryKey }) => getProducts(queryKey[1] as Record<string, string>)
   })
 
-  return { products: data, isProductsLoading: isLoading, isProductsHasError: isError, ProductsError: error, isProductsRefetching: isRefetching, isProductsFetching: isFetching, refetchProducts: refetch }
+  return { products: data, isProductsLoading: isLoading, isProductsHasError: isError, productsError: error, isProductsRefetching: isRefetching, isProductsFetching: isFetching, refetchProducts: refetch }
 }
 
 export function useProduct(id: number) {
@@ -18,5 +18,5 @@ export function useProduct(id: number) {
     queryFn: () => getProduct(id)
   })
 
-  return { product: data, isProductLoading: isLoading, isProductHasError: isError, ProductError: error, isProductRefetching: isRefetching, isProductFetching: isFetching, refetchProduct: refetch }
+  return { product: data, isProductLoading: isLoading, isProductHasError: isError, productError: error, isProductRefetching: isRefetching, isProductFetching: isFetching, refetchProduct: refetch }
 }

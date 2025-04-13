@@ -8,12 +8,12 @@ import routes from "@/lib/route"
 import { useCategories } from "@/hooks/data/use-categories"
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import { Skeleton } from "@/components/ui/skeleton"
+import { CategoriesLoadingState } from "@/components/common/categories-loading"
 
 const HomeCategoriesList = () => {
   const { categories, isCategoriesLoading } = useCategories()
 
-  if (isCategoriesLoading) return <LoadingState />
+  if (isCategoriesLoading) return <CategoriesLoadingState />
 
   return (
     <div className='max-w-7xl flex flex-wrap gap-6 mx-auto justify-center px-4'>
@@ -35,16 +35,6 @@ const HomeCategoriesList = () => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-    </div>
-  )
-}
-
-const LoadingState = () => {
-  return (
-    <div className='max-w-7xl flex flex-wrap gap-6 mx-auto justify-center px-4'>
-      {Array.from({ length: 12 }).map((_, i) => (
-        <Skeleton key={i} className='size-20 rounded-xl' />
-      ))}
     </div>
   )
 }

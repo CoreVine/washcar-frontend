@@ -95,3 +95,51 @@ export type Company = Timestamps & {
   total_rating: number;
   wash_types: WashCarType[];
 };
+
+export type CarSpecifications = {
+  engine: string;
+  transmission: string;
+  color: string;
+  fuelType: string;
+  seats: number;
+};
+
+export type CarImage = {
+  image_id: number;
+  car_id: number;
+  image_url: string;
+};
+
+export type Car = Timestamps & {
+  car_id: number;
+  make?: string;
+  model: string;
+  year: number;
+  price?: number;
+  price_per_day?: string;
+  mileage?: number;
+  description?: string;
+  images: CarImage[];
+  specifications?: CarSpecifications;
+  owner_id?: number;
+  carbrand_id: number;
+  company_id: number;
+  exhibition_id: number;
+  brand: Brand;
+  company?: {
+    company_id: number;
+    company_name: string;
+    logo_url: string;
+  };
+  exhibition?: {
+    exhibition_id: number;
+    location: string;
+    company_id: number;
+  };
+};
+
+export type Brand = {
+  brand_id: number;
+  name: string;
+  logo: string;
+};

@@ -1,24 +1,53 @@
-"use client"
 
+
+"use client"
+import { useEffect, useState } from "react"
 import ProductCard from "@/components/common/products/card"
 import { useTranslations } from "next-intl"
+import { getCars } from "@/actions/Cars"
+import { Cars } from "@/types/models"
 
-export default function RentCarProductsList() {
+type Props = {
+  selectedBrandId: number | null
+}
+
+export default function RentCarProductsList({ selectedBrandId }: Props) {
   const t = useTranslations()
+  const [cars, setCars] = useState<Cars[]>([])
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const data = await getCars()
+        setCars(data)
+      } catch (error) {
+        console.error(error)
+        setCars([])
+      }
+    }
+
+    fetchCars()
+  }, [])
+
+  const filteredCars = selectedBrandId
+    ? cars.filter((car) => car.brand.brand_id === selectedBrandId)
+    : cars
 
   return (
-    <div className='max-w-6xl mx-auto space-y-2 px-4'>
-      <p className='text-lg'>{t("products")}</p>
-      <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/01.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/02.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/03.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/04.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/01.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/02.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/03.png' />
-        <ProductCard title='Product 1' subtitle='Subtitle 1' image='/defaults/cars/04.png' />
+    <div className="max-w-6xl mx-auto space-y-2 px-4">
+      <p className="text-lg">{t("Rent a car")}</p>
+      <section className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
+        {filteredCars.map((car) => (
+          <ProductCard
+            key={car?.car_id}
+            id={car?.car_id}
+            title={car?.model}
+            subtitle={car?.brand.name}
+            image={car.images[0]?.image_url || "/defaults/cars/01.png"}
+          />
+        ))}
       </section>
     </div>
   )
 }
+

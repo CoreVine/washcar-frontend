@@ -51,6 +51,10 @@
   "carWash": "Car Wash",
   "rentCar": "Rent a Car",
   "buyACar": "Buy a Car",
+  "buyCar": "Buy Car",
+  
+  "price": "Price",
+  "mileage": "Mileage",
 
   "navbar": {
     "home": "Home",

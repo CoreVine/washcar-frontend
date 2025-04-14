@@ -9,7 +9,8 @@ const routes = {
   services: (service: string) => `/services/${service}`,
   categories: (category: number) => `/categories/${category}`,
 
-  companyCarWash: (companyId: number) => `/services/car-wash/${companyId}`
+  companyCarWash: (companyId: number) => `/services/car-wash/${companyId}`,
+  buyCar: (carId: number) => `/services/buy-car/${carId}`
 }
 
 export default routes

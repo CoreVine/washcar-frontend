@@ -37,7 +37,10 @@ export default async function CarWashPage({ searchParams }: Props) {
         ))}
       </div>
 
-      <SimplePagination hasNextPage={!!companies.nextPage} hasPrevPage={!!companies.lastPage} className='mt-10' />
+      <SimplePagination 
+        hasNextPage={!!companies.nextPage} 
+        className='mt-10' 
+      />
     </div>
   )
 }

@@ -43,6 +43,7 @@
   "cancel": "Cancel",
   "Iacknowledge": "I acknowledge that I have read and agree to the",
   "cart": "Cart",
+  "create": "Create",
 
   "home": "Home",
   "services": "Services",
@@ -52,13 +53,21 @@
   "rentCar": "Rent a Car",
   "buyACar": "Buy a Car",
 
+  "categoryName": "Category Name",
+
   "navbar": {
     "home": "Home",
     "services": "Services",
     "market": "Market",
     "myOrders": "My Orders",
-    "myAccount": "My Account"
+    "myAccount": "My Account",
+    "products": "products",
+    "carWash": "Car Wash",
+    "carOrders": "Car Orders",
+    "users": "Users",
+    "company": "Company"
   },
+
   "registerPage": {
     "title": "Start Your Journey with Wash Car!",
     "subtitle": "Register for car wash services, cleaning vehicle rentals, and car care products.",

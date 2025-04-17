@@ -1,32 +1,39 @@
 "use server"
 
-import { ApiError, LoginData, RegisterData, TAccountType } from "@/types/default"
+import { ApiError, ApiResponse, LoginData, RegisterData, TAccountType } from "@/types/default"
 import { SuccessfulLoginResponse } from "@/types/response"
-import { User } from "@/types/models"
+import { Employee, User } from "@/types/models"
 
-import { AUTH_COOKIE } from "@/lib/constants"
+import { API_URL, AUTH_COOKIE } from "@/lib/constants"
 
 import { getRequest, postRequest } from "@/lib/axios"
 import { loadDefaultHeaders } from "@/lib/api"
 import { cookies } from "next/headers"
-import { revalidatePath } from "next/cache"
+import { cache } from "react"
 
 export async function getToken(): Promise<string | undefined> {
   const token = (await cookies()).get(AUTH_COOKIE)?.value
   return token
 }
 
-export async function getUser() {
+export const getUser = cache(async () => {
   try {
     const token = await getToken()
-    const response = await getRequest("/auth/me", loadDefaultHeaders(token))
-    const data = response.data as User
-    return data
+    const response = await fetch(`${API_URL}/auth/me`, {
+      headers: loadDefaultHeaders(token)
+    })
+    type TMut = ApiResponse<{
+      user: User
+      employeeData: Employee
+    }>
+    const data = (await response.json()) as TMut
+    console.log({ data })
+    return data?.data?.user
   } catch (err) {
     console.log(err)
     return null
   }
-}
+})
 
 export async function logoutAction() {
   try {
@@ -46,8 +53,8 @@ export async function loginAction(credentials: LoginData, accountType: TAccountT
       accountType
     }
 
-    const res = await postRequest("/auth/login", requestData)
-    const data = res.data as SuccessfulLoginResponse
+    const res = await postRequest<SuccessfulLoginResponse>("/auth/login", requestData)
+    const data = res.data
     const store = await cookies()
 
     store.set(AUTH_COOKIE, data.token)

@@ -1,10 +1,17 @@
-import HomeSearch from "./_components/search"
-import HomeCategoriesList from "./_components/categories-list"
 import HomeProductsList from "./_components/products-list"
 import HomeServicesList from "./_components/services-list"
 
 import { getTranslations } from "next-intl/server"
+import { getProducts } from "@/actions/products"
+
+import { SimplePagination } from "@/components/common/simple-pagination"
+import { CategoriesList } from "@/components/common/categories/list"
 import { AdsList } from "@/components/common/ads"
+import { AppSearch } from "@/components/common/search"
+
+type Props = {
+  searchParams: Promise<Record<string, string>>
+}
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
@@ -14,15 +21,20 @@ export const generateMetadata = async () => {
   }
 }
 
-export default function Page() {
+export default async function Page({ searchParams }: Props) {
+  const products = await getProducts(await searchParams)
+
+  console.log("products", await searchParams)
+
   return (
     <div className='my-10'>
       <section className='space-y-8'>
-        <HomeSearch />
-        <HomeCategoriesList />
+        <AppSearch />
+        <CategoriesList />
         <AdsList />
         <HomeServicesList />
-        <HomeProductsList />
+        <HomeProductsList products={products.data} />
+        <SimplePagination hasNextPage={!!products.nextPage} hasPrevPage={!!products.lastPage} />
       </section>
     </div>
   )

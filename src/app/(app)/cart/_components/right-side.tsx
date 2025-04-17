@@ -28,9 +28,7 @@ export default function CartDetailsRightSide() {
         </div>
       </div>
 
-      <Button className='w-full h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-lg'>
-        {t("addToCart")}
-      </Button>
+      <Button className='w-full h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-lg'>{t("checkout")}</Button>
     </div>
   )
 }

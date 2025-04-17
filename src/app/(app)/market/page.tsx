@@ -4,11 +4,12 @@ import MarketProductsList from "./_components/products-list"
 
 import { getTranslations } from "next-intl/server"
 import { AdsList } from "@/components/common/ads"
+import { CategoriesList } from "@/components/common/categories/list"
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
   return {
-    title: t("Services"),
+    title: t("services"),
     description: t("home")
   }
 }
@@ -18,7 +19,7 @@ export default function Page() {
     <div className='my-10'>
       <section className='space-y-8'>
         <MarketSearch />
-        <MarketCategoriesList />
+        <CategoriesList />
         <AdsList />
         <MarketProductsList />
       </section>

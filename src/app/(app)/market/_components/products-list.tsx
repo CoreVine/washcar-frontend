@@ -8,6 +8,9 @@ import { useProducts } from "@/hooks/data/use-products"
 import { DEFAULT_USER_IMAGE } from "@/lib/constants"
 import { NoDataLabel } from "@/components/common/no-data-label"
 import { Skeleton } from "@/components/ui/skeleton"
+import { ProductsLoadingState } from "@/components/common/products/loading-state"
+import { Fragment } from "react"
+import { EmptyProductState } from "@/components/common/products/empty-state"
 
 export default function MarketProductsList() {
   const t = useTranslations()
@@ -19,29 +22,22 @@ export default function MarketProductsList() {
   return (
     <div className='max-w-6xl mx-auto space-y-2 px-4'>
       <p className='text-lg'>{t("products")}</p>
-      <LoadingState loading={isProductsLoading} />
 
-      {products?.data && products?.data.length === 0 ? (
-        <NoDataLabel />
+      {isProductsLoading ? (
+        <ProductsLoadingState number={10} />
       ) : (
-        <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
-          {products?.data?.map((product) => (
-            <ProductCard key={`product-card-market-${product.product_id}`} id={product.product_id} title={product.product_name} subtitle={product.price} image={product.images?.[0].image_url ?? DEFAULT_USER_IMAGE} />
-          ))}
-        </section>
+        <Fragment>
+          {products?.data && products?.data.length === 0 ? (
+            <EmptyProductState />
+          ) : (
+            <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
+              {products?.data?.map((product) => (
+                <ProductCard key={`product-card-market-${product.product_id}`} id={product.product_id} title={product.product_name} subtitle={product.price} image={product.images?.[0].image_url ?? DEFAULT_USER_IMAGE} />
+              ))}
+            </section>
+          )}
+        </Fragment>
       )}
     </div>
-  )
-}
-
-const LoadingState = ({ loading }: { loading: boolean }) => {
-  if (!loading) return null
-
-  return (
-    <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
-      {Array.from({ length: 10 }).map((_, index) => (
-        <Skeleton key={`loading-card-product-${index}`} className='w-full h-52 rounded-md' />
-      ))}
-    </section>
   )
 }

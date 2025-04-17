@@ -1,22 +1,42 @@
+import { SimplePagination } from "@/components/common/simple-pagination"
 
 import { getTranslations } from "next-intl/server"
+import { getBrands } from "@/actions/brands"
+import { getCars, getRentalCars } from "@/actions/cars"
 
-import PageClient from "./[cardId]/PageClient"
+import RentCarSearch from "./_components/search"
+import RentCarCarsList from "./_components/cars-list"
+import RentCarBrandsList from "./_components/brands-list"
+
+type Props = {
+  searchParams: Promise<{
+    page: string
+  }>
+}
 
 export const generateMetadata = async () => {
-
   const t = await getTranslations()
+
   return {
     title: t("rentCar"),
     description: t("rentCar")
   }
 }
 
-export default function Page() {
+export default async function Page({ searchParams }: Props) {
+  const { page } = await searchParams
 
+  const brands = await getBrands()
+  const cars = await getRentalCars({ page, type: "rent" })
 
   return (
-   
-    <PageClient/>
+    <div className='my-10'>
+      <section className='space-y-4'>
+        <RentCarSearch />
+        <RentCarBrandsList brands={brands} />
+        <RentCarCarsList cars={cars.data} />
+        <SimplePagination hasNextPage={!!cars.nextPage} hasPrevPage={!!cars.lastPage} />
+      </section>
+    </div>
   )
 }

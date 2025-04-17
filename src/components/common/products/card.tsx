@@ -10,7 +10,7 @@ type Props = {
 
 export default function ProductCard({ id, title, subtitle, image }: Props) {
   return (
-    <Link href={`/products/${id}`} className='bg-main-gray rounded-xl text-center overflow-hidden flex flex-col justify-between '>
+    <Link href={`/market/${id}`} className='bg-main-gray rounded-xl text-center overflow-hidden flex flex-col justify-between '>
       <div className='flex justify-center items-center py-10'>
         <Image className='w-36 h-20 object-contain mx-auto' src={image} width={1000} height={1000} alt='Image' />
       </div>

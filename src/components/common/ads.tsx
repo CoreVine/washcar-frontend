@@ -36,7 +36,7 @@ export const AdsList = () => {
             {ads?.data.map((ad, index) => (
               <div key={index} className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}>
                 <Image
-                  src={ad.image_url}
+                  src={`/defaults/nissan.png`}
                   alt={`Ad ${index + 1}`}
                   width={1110}
                   height={384} // Matches h-96 (24rem = 384px)

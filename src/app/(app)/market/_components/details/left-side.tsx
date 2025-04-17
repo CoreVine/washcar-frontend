@@ -2,10 +2,12 @@
 
 import Image from "next/image"
 
-import { ChevronLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-export default function MarketDetailsLeftSide() {
+import { ChevronLeft } from "lucide-react"
+import { Product } from "@/types/models"
+
+export default function MarketDetailsLeftSide({ product }: { product: Product }) {
   const t = useTranslations()
 
   return (
@@ -16,26 +18,20 @@ export default function MarketDetailsLeftSide() {
 
       <div className='flex items-center gap-4 py-4'>
         <div className='bg-gray-100 p-2 rounded-lg'>
-          <Image
-            src='/defaults/cars/01.png'
-            alt='Nissan NV200'
-            width={80}
-            height={80}
-            className='object-contain'
-          />
+          <Image src={product.images?.[0].image_url || "/defaults/cars/01.png"} alt={product.product_name} width={80} height={80} className='object-contain size-20' />
         </div>
         <div className='flex-1'>
-          <h2 className='text-lg font-medium'>Nissan NV200</h2>
+          <h2 className='text-lg font-medium'>{product.product_name}</h2>
         </div>
         <div className='text-right'>
-          <p className='font-medium'>250KWD</p>
+          <p className='font-medium'>{product.price}KWD</p>
         </div>
       </div>
 
       <div className='border-t pt-4'></div>
 
       <div className='bg-main-gray p-6 rounded-lg'>
-        <p className='text-gray-700 text-sm leading-relaxed'>{t("dummyProductDescription")}</p>
+        <p className='text-gray-700 text-sm leading-relaxed'>{product.description}</p>
       </div>
     </div>
   )

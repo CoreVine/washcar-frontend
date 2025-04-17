@@ -8,19 +8,28 @@
   "ads": "Ads",
   "name": "Name",
   "email": "Email",
+  "washTypes": "Wash Types",
+  "added": "Added",
   "password": "Password",
-  "addedToCart": "Added to cart successfully",
+  "alreadyAdded": "Already added",
   "forgotPassword": "Forgot Password?",
   "verifyEmail": "Verify Email",
   "confirmPassword": "Confirm Password",
   "newPassword": "New Password",
+  "rentingCar": "Renting Car",
+  "buyingCar": "Buying Car",
   "updatePassword": "Update Password",
   "phoneNumber": "Phone Number",
+  "emptyCart": "Empty Cart",
+  "carPrice": "Car Price",
+  "addedToCart": "Added to cart successfully",
+  "removedFromCart": "Removed from cart successfully",
   "logout": "Logout",
   "address": "Address",
   "profile": "Profile",
   "logout ": "Logout",
   "addToCart": "Add to Cart",
+  "removeFromCart": "Remove From Cart",
   "add": "Add",
   "noServiceAvailable": "No service available",
   "noWashTypesAvailable": "No wash types available",
@@ -52,7 +61,7 @@
   "rentCar": "Rent a Car",
   "buyACar": "Buy a Car",
   "buyCar": "Buy Car",
-  
+
   "price": "Price",
   "mileage": "Mileage",
 
@@ -87,5 +96,7 @@
     "title": "It seems you forgot your password",
     "subtitle": " Please enter your email address so we can help you reset it."
   },
-  "noDataAvailable": "No data available"
+  "noDataAvailable": "No data available",
+  "loginAlertMessage": "If you want to add items to your cart, please login first.",
+  "clickHereToLogin": "Click here to login"
 }

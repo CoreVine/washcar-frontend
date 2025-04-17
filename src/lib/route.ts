@@ -7,10 +7,11 @@ const routes = {
   myOrders: "/my-orders/services",
   myAccount: "/my-account",
   services: (service: string) => `/services/${service}`,
-  categories: (category: number) => `/categories/${category}`,
+  categories: (category: number) => `/market/categories/${category}`,
 
   companyCarWash: (companyId: number) => `/services/car-wash/${companyId}`,
-  buyCar: (carId: number) => `/services/buy-car/${carId}`
+  buyCar: (carId: number) => `/services/buy-car/${carId}`,
+  rentCar: (carId: number) => `/services/rent-car/${carId}`
 }
 
 export default routes

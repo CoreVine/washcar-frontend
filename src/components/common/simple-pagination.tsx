@@ -1,9 +1,11 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
+
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { Button } from "../ui/button"
 import { ClassValue } from "class-variance-authority/types"
+import { Button } from "../ui/button"
+
 import { cn } from "@/lib/utils"
 
 type Props = {
@@ -12,12 +14,6 @@ type Props = {
   hasPrevPage?: boolean
 }
 
-/**
- * Handles pagination with prev/next buttons
- * - Uses currentPage from URL to determine pagination state
- * - Disables prev button when on first page
- * - Disables next button when hasNextPage is false
- */
 export const SimplePagination = ({ className, hasNextPage, hasPrevPage }: Props) => {
   const sp = useSearchParams()
   const router = useRouter()
@@ -38,7 +34,7 @@ export const SimplePagination = ({ className, hasNextPage, hasPrevPage }: Props)
 
   return (
     <div className={cn("flex gap-2 items-center justify-center", className)}>
-      <Button disabled={currentPage <= 1} variant='outline' size='icon' icon={ArrowLeft} onClick={onPrev} />
+      <Button disabled={currentPage == 1} variant='outline' size='icon' icon={ArrowLeft} onClick={onPrev} />
       <Button disabled={!hasNextPage} variant='outline' size='icon' icon={ArrowRight} onClick={onNext} />
     </div>
   )

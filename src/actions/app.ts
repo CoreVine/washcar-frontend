@@ -5,6 +5,7 @@ import { cookies } from "next/headers"
 
 import { LANGUAGE_COOKIE } from "@/lib/constants"
 import { Ad } from "@/types/models"
+import { ApiError } from "@/types/default"
 
 export async function getLanguage(): Promise<string> {
   const language = (await cookies()).get(LANGUAGE_COOKIE)?.value
@@ -18,6 +19,7 @@ export async function getAds() {
     return data
   } catch (error) {
     console.error("Error fetching ads:", error)
-    throw new Error("Failed to fetch ads")
+    const err = error as ApiError<{ data: { message: string } }>
+    throw new Error(err?.data?.data?.message || "Failed to fetch ads")
   }
 }

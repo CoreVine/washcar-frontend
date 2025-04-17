@@ -1,36 +1,88 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
+import { Fragment, useEffect, useState } from "react"
+import { useCart } from "@/hooks/data/use-cart"
+import { useUser } from "@/hooks/auth/use-user"
+import { useRouter } from "next/navigation"
 
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
-import { Company, WashCarType } from "@/types/models"
-import { useWashCarCartStore } from "@/store/features/cart/wash-car"
+import { addCarWashItemsToCart, emptyCarWashItemsFromCart } from "@/actions/cart"
 import { toast } from "react-toastify"
-import { Button } from "@/components/ui/button"
+
+import { WashCarTypeCartItem, useWashCarCartStore } from "@/store/features/cart/wash-car"
+import { SingleCarWashType } from "./single-wash-car-type"
+import { CarWashSwitcher } from "./wash-types-switcher"
+import { LoadingButton } from "@/components/common/loading-button"
+import { LoginAlert } from "@/components/common/login-alert"
+import { Company } from "@/types/models"
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Props = {
   company: Company
 }
 
+type TMut = {
+  companyId: number
+  location: string
+  items: WashCarTypeCartItem[]
+}
+
 export const CompanyRightDetails = ({ company }: Props) => {
+  const user = useUser()
   const t = useTranslations()
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [services, setServices] = useState<WashCarType[]>([])
+  const { addCarWash, removeCarWash, emptyCarWash, types } = useWashCarCartStore()
+  const { cart, isCartFetched, isCartLoading } = useCart()
 
-  const { addCarWash, emptyCarWash, types } = useWashCarCartStore()
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isAdded, setIsAdded] = useState(false)
 
   const washTypes = company.wash_types || []
   const selectedWashType = washTypes[currentIndex]
 
+  const mutation = useMutation({
+    mutationFn: (data: TMut) => addCarWashItemsToCart(data.companyId, data.location, data.items),
+    onSuccess: () => {
+      toast.success(t("addedToCart"))
+      setIsAdded(true)
+      emptyCarWash()
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "failed")
+    }
+  })
+
+  const emptyCartMutation = useMutation({
+    mutationFn: (washOrderId: number) => emptyCarWashItemsFromCart(washOrderId),
+    onSuccess: () => {
+      toast.success(t("removedFromCart"))
+      setIsAdded(false)
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "failed")
+    }
+  })
+
   const handleAddToServices = () => {
     if (!selectedWashType) return
-    setServices([...services, selectedWashType])
+    const added = types.find((s) => s.typeId === selectedWashType.type_id)
+    if (added) {
+      toast.error(t("alreadyAdded"))
+      return
+    }
+    addCarWash({
+      typeId: selectedWashType.type_id,
+      companyId: company.company_id,
+      name: selectedWashType.name,
+      quantity: 1,
+      totalPrice: Number(selectedWashType.price),
+      unitPrice: Number(selectedWashType.price)
+    })
   }
 
-  const handleRemoveFromServices = (index: number) => {
-    setServices(services.filter((_, i) => i !== index))
+  const handleRemoveFromServices = (id: number) => {
+    removeCarWash(id)
   }
 
   const handlePrev = () => {
@@ -45,43 +97,26 @@ export const CompanyRightDetails = ({ company }: Props) => {
     }
   }
 
-  const total = services.reduce((total, s) => total + Number(s.price), 0) ?? 0
-
   const handleAddToCart = () => {
-    emptyCarWash()
-    services.forEach((service) => {
-      addCarWash({
-        type_id: service.type_id,
-        company_id: company.company_id,
-        name: service.name,
-        quantity: 1,
-        totalPrice: Number(service.price),
-        unitPrice: Number(service.price)
-      })
+    mutation.mutate({
+      location: company.location,
+      companyId: company.company_id,
+      items: types
     })
-
-    setServices([])
-    toast.success(t("addedToCart"))
   }
 
-  console.log(types)
+  useEffect(() => {
+    setIsAdded(!!cart?.carWashOrder)
+  }, [isCartFetched])
 
-  if (!washTypes.length) return <div className='p-6'>{t("noWashTypesAvailable")}</div>
+  const total = types.reduce((total, s) => total + Number(s.totalPrice), 0)
+
+  if (!washTypes.length || washTypes.length === 0) return <div className='p-6'>{t("noWashTypesAvailable")}</div>
 
   return (
     <div className='p-6 md:w-1/2'>
       <div className='mb-6 flex items-center justify-between'>
-        <div className='flex items-center'>
-          <button onClick={handlePrev} disabled={currentIndex === 0} className={`rounded-full cursor-pointer p-1 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed`}>
-            <ChevronLeft size={20} />
-          </button>
-
-          <span className='mx-2 font-medium'>{selectedWashType?.name}</span>
-
-          <button onClick={handleNext} disabled={currentIndex === washTypes.length - 1} className={`rounded-full cursor-pointer p-1 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed`}>
-            <ChevronRight size={20} />
-          </button>
-        </div>
+        <CarWashSwitcher handlePrev={handlePrev} handleNext={handleNext} currentIndex={currentIndex} selectedWashType={selectedWashType} washTypesLength={washTypes.length} />
 
         <div className='flex items-center gap-6'>
           <span className='font-medium'>{selectedWashType?.price} KWD</span>
@@ -94,18 +129,10 @@ export const CompanyRightDetails = ({ company }: Props) => {
         </div>
       </div>
 
-      {services.length > 0 ? (
+      {types.length > 0 ? (
         <div className='mb-6 space-y-4'>
-          {services.map((service, index) => (
-            <div key={index} className='flex items-center justify-between'>
-              <span>{service.name}</span>
-              <div className='flex items-center gap-2'>
-                <span>{service.price} KWD</span>
-                <button onClick={() => handleRemoveFromServices(index)} className='rounded-full cursor-pointer p-1 hover:bg-main-gray'>
-                  <X size={16} />
-                </button>
-              </div>
-            </div>
+          {types.map((service) => (
+            <SingleCarWashType handleRemoveFromServices={handleRemoveFromServices} service={service} key={`service-item-${service.typeId}`} />
           ))}
         </div>
       ) : (
@@ -115,13 +142,31 @@ export const CompanyRightDetails = ({ company }: Props) => {
       <div className='mb-6 border-t border-dashed border-gray-300 pt-4'>
         <div className='flex items-center justify-between font-medium'>
           <span>{t("total")}</span>
-          <span>{services.reduce((total, s) => total + Number(s.price), 0)} KWD</span>
+          <span>{total} KWD</span>
         </div>
       </div>
 
-      <Button onClick={handleAddToCart} disabled={total == 0} className='w-full rounded-full bg-blue-500 py-3 font-medium text-white hover:bg-blue-600'>
-        {t("addToCart")}
-      </Button>
+      {isCartLoading ? (
+        <Skeleton className='w-full rounded-full h-14' />
+      ) : (
+        <div>
+          {user?.user_id ? (
+            <Fragment>
+              {isAdded ? (
+                <LoadingButton loading={emptyCartMutation.isPending} onClick={() => emptyCartMutation.mutate(Number(cart?.carWashOrder?.wash_order_id))} className='w-full rounded-full bg-red-500 py-3 font-medium text-white hover:bg-red-600'>
+                  {t("emptyCart")}
+                </LoadingButton>
+              ) : (
+                <LoadingButton loading={mutation.isPending} onClick={handleAddToCart} disabled={total == 0} className='w-full rounded-full bg-blue-500 py-3 font-medium text-white hover:bg-blue-600'>
+                  {t("addToCart")}
+                </LoadingButton>
+              )}
+            </Fragment>
+          ) : (
+            <LoginAlert />
+          )}
+        </div>
+      )}
     </div>
   )
 }

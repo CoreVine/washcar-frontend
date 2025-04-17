@@ -7,6 +7,12 @@ import { AuthProvider, ReactQueryClientProvider } from "@/providers"
 import { NextIntlClientProvider } from "next-intl"
 import { ToastContainer } from "react-toastify"
 import { getUser } from "@/actions/auth"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Washcar",
+  description: "Washcar - Car wash service"
+}
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale()

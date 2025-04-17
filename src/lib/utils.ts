@@ -37,3 +37,12 @@ export function capitalize(str: string): string {
 export function checkLanguage(locale: string): TLanguage {
   return (Languages.all.includes(locale) ? locale : "en") as TLanguage
 }
+
+export function extractInfoFromDate(txt: string) {
+  const arr = txt.split("-")
+  return {
+    day: arr[2],
+    year: arr[0],
+    month: arr[1]
+  }
+}

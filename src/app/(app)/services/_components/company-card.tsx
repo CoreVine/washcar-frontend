@@ -12,7 +12,7 @@ export default function CompanyCard({ company }: { company: Company }) {
     <div className='flex border-b justify-between border-blue-100 pb-4 pt-2 gap-4'>
       <div className='mr-4 flex-shrink-0 flex gap-4 items-center'>
         <Link href={routes.companyCarWash(company.company_id)} className='relative h-20 w-20 overflow-hidden rounded border border-gray-200'>
-          <Image src={company.logo_url} alt='Car wash equipment' className='h-auto w-full' width={100} height={100} />
+          <Image src={company?.logo_url ?? "/defaults/nissan.png"} alt='Car wash equipment' className='h-auto w-full' width={100} height={100} />
         </Link>
 
         <Link href={routes.companyCarWash(company.company_id)} className='text-lg hover:text-underline'>

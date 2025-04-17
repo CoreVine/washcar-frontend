@@ -5,28 +5,28 @@ import AppLogo from "@/components/common/logo"
 
 import { useTranslations } from "next-intl"
 import { useState } from "react"
-
-import { Eye, EyeOff } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-
-import { BackgroundBubbles } from "@/components/common/bubbles-effect"
 import { useLogin } from "@/hooks/auth/use-login"
 import { useForm } from "react-hook-form"
-import { LoginSchema } from "@/schema/auth"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+
+import { BackgroundBubbles } from "@/components/common/bubbles-effect"
+import { LoginSchema } from "@/schema/auth"
 import { Form } from "@/components/ui/form"
 import { InputField } from "@/components/common/form/input-field"
 import { LoadingButton } from "@/components/common/loading-button"
+import { Eye, EyeOff } from "lucide-react"
 
 export default function LoginForm() {
   const t = useTranslations()
   const [showPassword, setShowPassword] = useState(false)
 
   const form = useForm({
-    resolver: zodResolver(LoginSchema)
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "a@a.com",
+      password: "0552320541"
+    }
   })
   const mutation = useLogin()
 

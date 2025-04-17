@@ -1,6 +1,6 @@
 import QueryKeys from "@/lib/query-keys"
 
-import { getCategories, getCategory } from "@/actions/categories"
+import { getCategories, getCategory, getCategoryProducts, getCategorySubCategories } from "@/actions/categories"
 import { useQuery } from "@tanstack/react-query"
 
 export function useCategories() {
@@ -19,4 +19,22 @@ export function useCategory(id: number) {
   })
 
   return { category: data, isCategoryLoading: isLoading, isCategoryHasError: isError, CategoryError: error, isCategoryRefetching: isRefetching, isCategoryFetching: isFetching, refetchCategory: refetch }
+}
+
+export function useCategorySubCategories(id: number) {
+  const { data, isLoading, refetch, isFetching, isRefetching, error, isError } = useQuery({
+    queryKey: QueryKeys.categories.singleSubCategories(id),
+    queryFn: ({ queryKey }) => getCategorySubCategories(queryKey[1] as number)
+  })
+
+  return { subCategories: data, isSubCategoriesLoading: isLoading, isSubCategoriesHasError: isError, SubCategoriesError: error, isSubCategoriesRefetching: isRefetching, isSubCategoriesFetching: isFetching, refetchSubCategories: refetch }
+}
+
+export function useCategoryProducts(id: number) {
+  const { data, isLoading, refetch, isFetching, isRefetching, error, isError } = useQuery({
+    queryKey: QueryKeys.categories.singleProducts(id),
+    queryFn: ({ queryKey }) => getCategoryProducts(queryKey[1] as number)
+  })
+
+  return { products: data, isProductsLoading: isLoading, isProductsHasError: isError, ProductsError: error, isProductsRefetching: isRefetching, isProductsFetching: isFetching, refetchProducts: refetch }
 }

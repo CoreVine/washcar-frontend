@@ -14,7 +14,8 @@ export async function getCompanies(params: Record<string, string> = {}) {
     return data
   } catch (error) {
     console.error("Error fetching companies:", error)
-    throw new Error("Failed to fetch companies")
+    const err = error as ApiError<{ data: { message: string } }>
+    throw new Error(err?.data?.data?.message || "Failed to fetch companies")
   }
 }
 
@@ -25,7 +26,8 @@ export async function getCompanyWashTypes(companyId: number, params: Record<stri
     const data = res.data
     return data
   } catch (error) {
-    const err = error as ApiError<any>
-    return undefined
+    console.error("Error fetching company wash types:", error)
+    const err = error as ApiError<{ data: { message: string } }>
+    throw new Error(err?.data?.data?.message || "Failed to fetch company wash types")
   }
 }

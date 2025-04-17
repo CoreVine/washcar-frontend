@@ -1,10 +1,11 @@
-import ServicesSearch from "../_components/search"
-import CompanyCard from "../_components/company-card"
-
-import { Settings2 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { getCompanies } from "@/actions/companies"
+
 import { SimplePagination } from "@/components/common/simple-pagination"
+import { Settings2 } from "lucide-react"
+
+import ServicesSearch from "../_components/search"
+import CompanyCard from "../_components/company-card"
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
@@ -37,10 +38,7 @@ export default async function CarWashPage({ searchParams }: Props) {
         ))}
       </div>
 
-      <SimplePagination 
-        hasNextPage={!!companies.nextPage} 
-        className='mt-10' 
-      />
+      <SimplePagination hasNextPage={!!companies.nextPage} className='mt-10' />
     </div>
   )
 }

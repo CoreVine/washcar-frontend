@@ -16,7 +16,7 @@ export const generateMetadata = async () => {
 
 export default async function Page() {
   const user = await getUser()
-  if (user) return redirect(routes.myAccount)
+  if (user?.user) return redirect(routes.myAccount)
 
   return <LoginForm />
 }

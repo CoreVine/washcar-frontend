@@ -2,29 +2,29 @@
 
 import Image from "next/image"
 
-import { Button } from "@/components/ui/button"
-import { CarouselItem } from "@/components/ui/carousel"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { CameraIcon, Minus, Plus } from "lucide-react"
 import { ChangeEvent, useState } from "react"
-import { Input } from "@/components/ui/input"
 import { useTranslations } from "next-intl"
 import { useMutation } from "@tanstack/react-query"
-import { createCategoryAction } from "@/actions/categories"
-import { toast } from "react-toastify"
-import { LoadingButton } from "../loading-button"
 import { useForm } from "react-hook-form"
+
+import { createCategoryAction } from "@/actions/categories"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "react-toastify"
+
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { CameraIcon, Minus, Plus } from "lucide-react"
+import { LoadingButton } from "../loading-button"
 import { ProductSchema } from "@/schema/products"
-import { Form } from "@/components/ui/form"
 import { InputField } from "../form/input-field"
+import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
 
 type Props = {
   trigger?: React.ReactNode
   asChild?: boolean
 }
 
-export const CreateProductModal = ({ trigger, asChild }: Props) => {
+export const CreateProductModal = ({ trigger, asChild = true }: Props) => {
   const t = useTranslations()
 
   const [fileUrl, setFileUrl] = useState("/defaults/user.jpeg")

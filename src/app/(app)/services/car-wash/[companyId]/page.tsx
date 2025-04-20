@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { CompanyRightDetails } from "../_components/company-right-details"
 import { CompanyLeftDetails } from "../_components/company-left-details"
-import { getCart } from "@/actions/cart"
 
 type Props = {
   params: Promise<{

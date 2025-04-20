@@ -14,7 +14,6 @@ import { CreateCatetoryModal } from "./create-modal"
 
 export const CategoriesList = ({ itemUrl = "/" }: { itemUrl?: string }) => {
   const { categories, isCategoriesLoading } = useCategories()
-  const user = useUser()
 
   if (isCategoriesLoading) return <CategoriesLoadingState />
 

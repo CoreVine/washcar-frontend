@@ -12,13 +12,13 @@ import { RentCarItem } from "./rent-car-item"
 import { Skeleton } from "@/components/ui/skeleton"
 import { BuyCarItem } from "./buy-car-item"
 import { Fragment } from "react"
+import { NoDataLabel } from "@/components/common/no-data-label"
 
 export default function CartDetailsLeftSide() {
   const t = useTranslations()
 
   const { cart, isCartLoading } = useCart()
-
-  console.log("Cart", cart)
+  const hasItems = (cart?.orderItems && cart?.orderItems?.length > 0) || !!cart?.rentalOrder || !!cart?.carOrder || !!cart?.carWashOrder
 
   if (isCartLoading) return <LoadingState />
 
@@ -33,50 +33,54 @@ export default function CartDetailsLeftSide() {
         <h1 className='font-semibold text-lg'>{t("cart")}</h1>
       </div>
 
-      <section className='space-y-4 divide-y'>
-        {cart?.orderItems && cart?.orderItems?.length > 0 && (
-          <Fragment>
-            {cart?.orderItems && (
-              <div className='space-y-4'>
-                <p className='text-xl font-medium'>{t("products")}</p>
-                <div className='divide-y'>
-                  {cart.orderItems.map((item) => (
-                    <ProductItem initialQty={item.quantity} itemId={item.order_item_id} key={`product-item-${item.product_id}`} product={item.product} />
-                  ))}
+      {hasItems ? (
+        <section className='space-y-4 divide-y'>
+          {cart?.orderItems && cart?.orderItems?.length > 0 && (
+            <Fragment>
+              {cart?.orderItems && (
+                <div className='space-y-4'>
+                  <p className='text-xl font-medium'>{t("products")}</p>
+                  <div className='divide-y'>
+                    {cart.orderItems.map((item) => (
+                      <ProductItem orderItem={item.order_item_id} initialQty={item.quantity} itemId={item.order_item_id} key={`product-item-${item.product_id}`} product={item.product} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </Fragment>
-        )}
+              )}
+            </Fragment>
+          )}
 
-        {cart?.carWashOrder && cart.carWashOrder.washTypes.length > 0 && (
-          <Fragment>
-            {cart?.carWashOrder && (
-              <div className='space-y-4'>
-                <p className='text-xl font-medium'>{t("washTypes")}</p>
-                <div className='divide-y'>
-                  {cart?.carWashOrder?.washTypes?.map((service) => (
-                    <ServiceItem key={`service-item-${service.type_id}`} service={service} />
-                  ))}
+          {cart?.carWashOrder && cart.carWashOrder.washTypes.length > 0 && (
+            <Fragment>
+              {cart?.carWashOrder && (
+                <div className='space-y-4'>
+                  <p className='text-xl font-medium'>{t("washTypes")}</p>
+                  <div className='divide-y'>
+                    {cart?.carWashOrder?.washTypes?.map((service) => (
+                      <ServiceItem key={`service-item-${service.type_id}`} service={service} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </Fragment>
-        )}
+              )}
+            </Fragment>
+          )}
 
-        {cart?.rentalOrder && (
-          <div>
-            <p className='text-xl font-medium'>{t("rentingCar")}</p>
-            <RentCarItem car={cart.rentalOrder.car} rentOrderId={cart.rentalOrder.rental_order_id} />
-          </div>
-        )}
-        {cart?.carOrder && (
-          <div>
-            <p className='text-xl font-medium'>{t("buyingCar")}</p>
-            <BuyCarItem car={cart.carOrder.car} />
-          </div>
-        )}
-      </section>
+          {cart?.rentalOrder && (
+            <div>
+              <p className='text-xl font-medium'>{t("rentingCar")}</p>
+              <RentCarItem car={cart.rentalOrder.car} rentOrderId={cart.rentalOrder.rental_order_id} />
+            </div>
+          )}
+          {cart?.carOrder && (
+            <div>
+              <p className='text-xl font-medium'>{t("buyingCar")}</p>
+              <BuyCarItem car={cart.carOrder.car} />
+            </div>
+          )}
+        </section>
+      ) : (
+        <NoDataLabel />
+      )}
     </div>
   )
 }

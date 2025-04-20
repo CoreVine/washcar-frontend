@@ -19,7 +19,7 @@ type Props = {
   asChild?: boolean
 }
 
-export const CreateCatetoryModal = ({ trigger, asChild }: Props) => {
+export const CreateCatetoryModal = ({ trigger, asChild = true }: Props) => {
   const t = useTranslations()
 
   const [fileUrl, setFileUrl] = useState("/defaults/user.jpeg")

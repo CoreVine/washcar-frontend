@@ -1,6 +1,6 @@
 "use server"
 
-import { ApiError, ApiResponse, LoginData, RegisterData, TAccountType } from "@/types/default"
+import { ApiError, ApiResponse, LoginData, LoginResponse, RegisterData, TAccountType } from "@/types/default"
 import { SuccessfulLoginResponse } from "@/types/response"
 import { Employee, User } from "@/types/models"
 
@@ -22,13 +22,9 @@ export const getUser = cache(async () => {
     const response = await fetch(`${API_URL}/auth/me`, {
       headers: loadDefaultHeaders(token)
     })
-    type TMut = ApiResponse<{
-      user: User
-      employeeData: Employee
-    }>
+    type TMut = ApiResponse<LoginResponse>
     const data = (await response.json()) as TMut
-    console.log({ data })
-    return data?.data?.user
+    return data?.data
   } catch (err) {
     console.log(err)
     return null

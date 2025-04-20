@@ -6,11 +6,10 @@ import { useTranslations } from "next-intl"
 import { useProducts } from "@/hooks/data/use-products"
 
 import { DEFAULT_USER_IMAGE } from "@/lib/constants"
-import { NoDataLabel } from "@/components/common/no-data-label"
-import { Skeleton } from "@/components/ui/skeleton"
 import { ProductsLoadingState } from "@/components/common/products/loading-state"
 import { Fragment } from "react"
 import { EmptyProductState } from "@/components/common/products/empty-state"
+import { CreateProductModal } from "@/components/common/products/create-modal"
 
 export default function MarketProductsList() {
   const t = useTranslations()
@@ -21,7 +20,10 @@ export default function MarketProductsList() {
 
   return (
     <div className='max-w-6xl mx-auto space-y-2 px-4'>
-      <p className='text-lg'>{t("products")}</p>
+      <div className='flex items-center justify-between'>
+        <p className='text-lg'>{t("products")}</p>
+        <CreateProductModal />
+      </div>
 
       {isProductsLoading ? (
         <ProductsLoadingState number={10} />

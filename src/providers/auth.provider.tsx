@@ -1,12 +1,13 @@
 "use client"
 
+import { LoginResponse } from "@/types/default"
 import { User } from "@/types/models"
 import { createContext } from "react"
 
-export const UserContext = createContext<User | null>(null)
+export const UserContext = createContext<LoginResponse | null>(null)
 
 type AuthProviderProps = {
-  value: User | null
+  value: LoginResponse | null
   children: React.ReactNode
 }
 

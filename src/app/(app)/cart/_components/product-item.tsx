@@ -1,7 +1,8 @@
 import { removeProductFromCart, updateProductInCart } from "@/actions/cart"
 import { LoadingButton } from "@/components/common/loading-button"
+import { useCart } from "@/hooks/data/use-cart"
 import { Product } from "@/types/models"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Minus, Plus, XIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
@@ -9,25 +10,30 @@ import Image from "next/image"
 import { useState } from "react"
 import { toast } from "react-toastify"
 
-type Props = { product: Product; itemId: number; initialQty: number }
+type Props = { product: Product; itemId: number; initialQty: number; orderItem: number }
 
-export const ProductItem = ({ product, itemId, initialQty = 1 }: Props) => {
+export const ProductItem = ({ product, itemId, orderItem, initialQty = 1 }: Props) => {
   const t = useTranslations()
 
   const [added, setIsAdded] = useState(true)
   const [qty, setQty] = useState(initialQty)
 
+  const { refetchCart } = useCart()
+  const qc = useQueryClient()
+
   const removeMutation = useMutation({
     mutationFn: (productId: number) => removeProductFromCart(productId),
     onSuccess: () => {
       toast.success(t("removed"))
+      qc.invalidateQueries({ queryKey: ["cart"] })
       setIsAdded(false)
+      refetchCart()
     },
     onError: (error: any) => toast.error(error?.message || t("failed"))
   })
 
   const updateMutation = useMutation({
-    mutationFn: ({ productId, quantity }: { productId: number; quantity: number }) => updateProductInCart(productId, quantity),
+    mutationFn: ({ orderItemId, quantity }: { orderItemId: number; quantity: number }) => updateProductInCart(orderItemId, quantity),
     onSuccess: () => toast.success(t("updated")),
     onError: (error: any) => toast.error(error?.message || t("failed"))
   })
@@ -37,18 +43,17 @@ export const ProductItem = ({ product, itemId, initialQty = 1 }: Props) => {
     setQty(newQty)
 
     if (added) {
-      updateMutation.mutate({ productId: product.product_id, quantity: newQty })
+      updateMutation.mutate({ orderItemId: orderItem, quantity: newQty })
     }
   }
 
   const handleDecrease = () => {
     if (qty === 1) return
-
     const newQty = qty - 1
     setQty(newQty)
 
     if (added) {
-      updateMutation.mutate({ productId: product.product_id, quantity: newQty })
+      updateMutation.mutate({ orderItemId: orderItem, quantity: newQty })
     }
   }
 

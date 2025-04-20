@@ -14,14 +14,12 @@ export type User = Timestamps & {
 
 export type Employee = Timestamps & {
   user_id: number
-  name: string
-  username: string
-  email: string
-  password: string
-  phone_number: string
-  address: string
-  profile_picture_url: string | null
-  acc_type: "user" | "company" | "admin"
+  company_id: number
+  role: string
+  created_at: string
+  updated_at: string
+  company: Company
+  user: User
 }
 
 export type Ad = Timestamps & {

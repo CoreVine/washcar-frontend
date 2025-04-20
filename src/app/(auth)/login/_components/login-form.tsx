@@ -56,10 +56,11 @@ export default function LoginForm() {
             <div>
               <div className='relative'>
                 <InputField name='password' label={t("password")} control={form.control} type={showPassword ? "text" : "password"} placeholder='••••••••' className='bg-gray-100 pr-10' />
-                <button type='button' className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400' onClick={() => setShowPassword(!showPassword)}>
+                <button type='button' className='absolute right-3 top-10 -translate-y-1/2 p-0 m-0 flex items-center text-gray-400' onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+
               <div className='flex justify-end'>
                 <Link href='/forgot-password' className='text-blue-500 hover:underline font-semibold text-sm w-fit'>
                   {t("forgotPassword")}

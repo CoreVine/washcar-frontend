@@ -5,6 +5,7 @@ const routes = {
   register: "/register",
   market: "/market",
   myOrders: "/my-orders/services",
+  cart: "/cart",
   myAccount: "/my-account",
   services: (service: string) => `/services/${service}`,
   categories: (category: number) => `/market/categories/${category}`,

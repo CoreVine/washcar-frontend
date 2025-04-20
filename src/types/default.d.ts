@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { LoginSchema, RegisterSchema } from "@/schema/auth"
 import { LucideIcon } from "lucide-react"
+import { Employee, User } from "@/types/models"
 
 export type ApiResponse<T> = {
   data: T
@@ -33,4 +34,9 @@ export type PaginatedData<T> = {
   totalPages: number
   totalItems: number
   data: T[]
+}
+
+export type LoginResponse = {
+  user: User
+  employeeData: Employee
 }

@@ -150,7 +150,7 @@ export const CompanyRightDetails = ({ company }: Props) => {
         <Skeleton className='w-full rounded-full h-14' />
       ) : (
         <div>
-          {user?.user_id ? (
+          {user?.user?.user_id ? (
             <Fragment>
               {isAdded ? (
                 <LoadingButton loading={emptyCartMutation.isPending} onClick={() => emptyCartMutation.mutate(Number(cart?.carWashOrder?.wash_order_id))} className='w-full rounded-full bg-red-500 py-3 font-medium text-white hover:bg-red-600'>

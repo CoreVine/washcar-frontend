@@ -4,7 +4,7 @@ import { WashCarTypeCartItem } from "@/store/features/cart/wash-car"
 import { ApiError } from "@/types/default"
 import { Order } from "@/types/models"
 
-import { deleteRequest, getRequest, postRequest } from "@/lib/axios"
+import { deleteRequest, getRequest, postRequest, putRequest } from "@/lib/axios"
 import { loadDefaultHeaders } from "@/lib/api"
 import { getToken } from "./auth"
 import { API_URL } from "@/lib/constants"
@@ -18,9 +18,7 @@ export async function getCart() {
     const res = await getRequest<Order>("/cart", loadDefaultHeaders(token))
     return res.data
   } catch (error) {
-    const e = error as ApiError<{ data: { message: string } }>
-    console.log(e)
-    throw new Error(e?.data?.data?.message || "Failed to get cart")
+    return null
   }
 }
 
@@ -169,14 +167,13 @@ export async function addProductToCart(productId: number, qty: number) {
   }
 }
 
-export async function updateProductInCart(productId: number, qty: number) {
+export async function updateProductInCart(orderItemId: number, qty: number) {
   try {
     const token = await getToken()
-    const res = await postRequest(
+    const res = await putRequest(
       "/cart/items",
       {
-        item_type: "product",
-        product_id: productId,
+        order_item_id: orderItemId,
         quantity: qty
       },
       loadDefaultHeaders(token)

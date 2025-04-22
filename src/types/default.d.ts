@@ -17,6 +17,8 @@ export type ApiError<T> = {
 
 export type TLanguage = "ar" | "en"
 export type TAccountType = "admin" | "user" | "company"
+export type TSearchParams = Record<string, string | string[] | undefined>
+export type ApiErrorData = { data: { message: string } }
 
 export type Timestamps = {
   created_at: Date

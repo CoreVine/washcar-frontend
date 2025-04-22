@@ -21,21 +21,21 @@ export default function NavbarItems() {
         </li>
 
         <li>
-          <Link href={"/company"}>{t("carWash")}</Link>
+          <Link href={routes.carWash}>{t("carWash")}</Link>
         </li>
 
         <li>
-          <Link href={""}>{t("carOrders")}</Link>
+          <Link href={routes.carOrders}>{t("carOrders")}</Link>
         </li>
 
         <li>
-          <Link href={""}>{t("users")}</Link>
+          <Link href={routes.users}>{t("users")}</Link>
         </li>
         <li>
-          <Link href={"/company"}>{t("company")}</Link>
+          <Link href={routes.company}>{t("company")}</Link>
         </li>
         <li>
-          <Link href={""}>{t("myAccount")}</Link>
+          <Link href={routes.myAccount}>{t("myAccount")}</Link>
         </li>
       </ul>
     )

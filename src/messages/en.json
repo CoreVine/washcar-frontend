@@ -17,6 +17,7 @@
   "areYourSureThatYouWantToDeleteThisProduct": "Are you sure that you want to delete this product?",
   "thisActionIsNotReversible": "This action is not reversible",
   "company": "Company",
+  "pleaseLogin": "Please login to continue",
   "carOrders": "Car Orders",
   "users": "Users",
   "myAccount": "My Account",
@@ -110,5 +111,10 @@
   },
   "noDataAvailable": "No data available",
   "loginAlertMessage": "If you want to add items to your cart, please login first.",
-  "clickHereToLogin": "Click here to login"
+  "clickHereToLogin": "Click here to login",
+  "areYouSureThatYouWantToDeleteThisUser": "Are you sure that you want to delete this user?",
+  "thisActionIsNotReversibleOnceYouDeleteTheUserYouDeleteAllOfHisData": "This action is not reversible. Once you delete the user, you delete all of his data.",
+  "failedToDeleteUser": "Failed to delete user",
+  "userDeletedSuccessfully": "User deleted successfully",
+  "reasonForDeletion": "Reason for deletion"
 }

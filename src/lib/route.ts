@@ -7,6 +7,12 @@ const routes = {
   myOrders: "/my-orders/services",
   cart: "/cart",
   myAccount: "/my-account",
+  users: `/users`,
+  viewUser: (userId: number) => `/users/${userId}`,
+  company: `/company`,
+  carOrders: `/car-orders`,
+  carWash: `/car-orders`,
+
   services: (service: string) => `/services/${service}`,
   categories: (category: number) => `/market/categories/${category}`,
 

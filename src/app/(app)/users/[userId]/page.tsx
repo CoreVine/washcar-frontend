@@ -1,7 +1,3 @@
-"use client"
-
-import { useUser } from "@/hooks/auth/use-user"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { KeyRound, Trash2 } from "lucide-react"
@@ -9,9 +5,16 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { getUser } from "@/actions/auth"
+import { getSingleUser } from "@/actions/users"
 
-export default function UserProfilePage() {
-  const user = useUser()
+type Props = {
+  params: Promise<{ userId: string }>
+}
+
+export default async function UserProfilePage({ params }: Props) {
+  const { userId } = await params
+  const user = await getSingleUser(+userId)
 
   return (
     <div className='flex justify-center items-center min-h-screen p-4'>
@@ -19,8 +22,8 @@ export default function UserProfilePage() {
         <CardHeader className='flex flex-col items-center space-y-4 pb-0'>
           <div className='relative'>
             <Avatar className='w-24 h-24'>
-              <AvatarImage src={user?.user.profile_picture_url || "/placeholder.svg"} alt='Profile picture' />
-              <AvatarFallback>{user?.user.name[0]}</AvatarFallback>
+              <AvatarImage src={user?.profile_picture_url || "/placeholder.svg"} alt='Profile picture' />
+              <AvatarFallback>{user?.name[0]}</AvatarFallback>
             </Avatar>
             <button className='absolute bottom-0 right-0 bg-muted rounded-full p-1.5 border border-border'>
               <svg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -52,22 +55,22 @@ export default function UserProfilePage() {
         <CardContent className='space-y-4'>
           <div className='space-y-2'>
             <Label htmlFor='username'>Username</Label>
-            <Input id='username' defaultValue={user?.user.username} />
+            <Input id='username' defaultValue={user?.username} />
           </div>
 
           <div className='space-y-2'>
             <Label htmlFor='email'>Email</Label>
-            <Input id='email' type='email' defaultValue={user?.user.email} />
+            <Input id='email' type='email' defaultValue={user?.email} />
           </div>
 
           <div className='space-y-2'>
             <Label htmlFor='phone'>Phone</Label>
-            <Input id='phone' type='tel' defaultValue={user?.user.phone_number} />
+            <Input id='phone' type='tel' defaultValue={user?.phone_number} />
           </div>
 
           <div className='space-y-2'>
             <Label htmlFor='address'>Address</Label>
-            <Input id='address' defaultValue={user?.user.address} />
+            <Input id='address' defaultValue={user?.address} />
           </div>
         </CardContent>
 

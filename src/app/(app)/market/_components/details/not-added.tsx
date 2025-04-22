@@ -48,10 +48,18 @@ export const ProductNotAdded = ({ product }: Props) => {
   })
 
   const handleAddToCart = () => {
+    if (!user?.user) {
+      toast.error(t("pleaseLogin"))
+      return
+    }
     addMutation.mutate({ productId: product.product_id, quantity: 1 })
   }
 
   const handleIncrease = () => {
+    if (!user?.user) {
+      toast.error(t("pleaseLogin"))
+      return
+    }
     addMutation.mutate({ productId: product.product_id, quantity: 2 })
   }
 

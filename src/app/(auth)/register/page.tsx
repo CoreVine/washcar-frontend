@@ -4,6 +4,8 @@ import RegisterForm from "./_components/register-form"
 import { getUser } from "@/actions/auth"
 import { redirect } from "next/navigation"
 import routes from "@/lib/route"
+import { cookies } from "next/headers"
+import { LANGUAGE_COOKIE } from "@/lib/constants"
 
 export const generateMetadata = async () => {
   const t = await getTranslations()

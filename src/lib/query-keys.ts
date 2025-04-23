@@ -1,3 +1,5 @@
+import { TSearchParams } from "@/types/default"
+
 const QueryKeys = {
   ads: {
     index: ["ads"],
@@ -10,11 +12,11 @@ const QueryKeys = {
     singleSubCategories: (id: number) => ["categories", id, "subcategories"]
   },
   products: {
-    index: (params: Record<string, string>) => ["products", params],
+    index: (params: TSearchParams) => ["products", params],
     single: (id: number) => ["products", id]
   },
   brands: {
-    index: (params: Record<string, string>) => ["brands", params],
+    index: (params: TSearchParams) => ["brands", params],
     single: (id: number) => ["brands", id]
   }
 }

@@ -1,7 +1,5 @@
 "use client"
 
-import Image from "next/image"
-
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { useAds } from "@/hooks/data/use-ads"
@@ -35,13 +33,7 @@ export const AdsList = () => {
           <div className='h-full w-full'>
             {ads?.data.map((ad, index) => (
               <div key={index} className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"}`}>
-                <Image
-                  src={`/defaults/nissan.png`}
-                  alt={`Ad ${index + 1}`}
-                  width={1110}
-                  height={384} // Matches h-96 (24rem = 384px)
-                  className='w-full h-96 object-cover rounded-xl'
-                />
+                <img src={`/defaults/ads02.png`} alt={`Ad ${index + 1}`} width={1110} height={384} className='w-full h-96 object-cover rounded-xl' />
               </div>
             ))}
           </div>

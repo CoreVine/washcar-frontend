@@ -88,6 +88,7 @@ export const CreateProductModal = ({ trigger, asChild = true }: Props) => {
 
             <div className='space-y-6'>
               <InputField label={t("name")} name='name' control={form.control} />
+
               <InputField label={t("price")} name='name' control={form.control} />
 
               <div className='flex justify-between items-center'>

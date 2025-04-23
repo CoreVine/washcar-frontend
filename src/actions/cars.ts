@@ -1,11 +1,11 @@
 "use server"
 
-import { getRequest, postRequest } from "@/lib/axios"
-import { ApiError, PaginatedData } from "@/types/default"
+import { getRequest } from "@/lib/axios"
+import { ApiError, PaginatedData, TSearchParams } from "@/types/default"
 import { Car } from "@/types/models"
 import { build } from "search-params"
 
-export async function getCars(params: Record<string, string> = {}) {
+export async function getCars(params: TSearchParams = {}) {
   try {
     const sp = build(params)
     const res = await getRequest<PaginatedData<Car>>(`/cars?${sp}`)
@@ -18,7 +18,7 @@ export async function getCars(params: Record<string, string> = {}) {
   }
 }
 
-export async function getRentalCars(params: Record<string, string> = { type: "rent" }) {
+export async function getRentalCars(params: TSearchParams = { type: "rent" }) {
   try {
     const sp = build(params)
     const res = await getRequest<PaginatedData<Car>>(`/cars?${sp}`)
@@ -31,7 +31,7 @@ export async function getRentalCars(params: Record<string, string> = { type: "re
   }
 }
 
-export async function getBuyingCars(params: Record<string, string> = { type: "sale" }) {
+export async function getBuyingCars(params: TSearchParams = { type: "sale" }) {
   try {
     const sp = build(params)
     const res = await getRequest<PaginatedData<Car>>(`/cars?${sp}`)
@@ -44,7 +44,7 @@ export async function getBuyingCars(params: Record<string, string> = { type: "sa
   }
 }
 
-export async function getCarById(carId: number, params: Record<string, string> = {}) {
+export async function getCarById(carId: number, params: TSearchParams = {}) {
   try {
     const sp = build(params)
     const res = await getRequest<Car>(`/cars/${carId}?${sp}`)

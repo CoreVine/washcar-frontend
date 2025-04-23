@@ -1,10 +1,10 @@
+import { AppSearch } from "@/components/common/search"
 import { SimplePagination } from "@/components/common/simple-pagination"
 
 import { getTranslations } from "next-intl/server"
 import { getBrands } from "@/actions/brands"
-import { getCars, getRentalCars } from "@/actions/cars"
+import { getRentalCars } from "@/actions/cars"
 
-import RentCarSearch from "./_components/search"
 import RentCarCarsList from "./_components/cars-list"
 import RentCarBrandsList from "./_components/brands-list"
 
@@ -32,7 +32,7 @@ export default async function Page({ searchParams }: Props) {
   return (
     <div className='my-10'>
       <section className='space-y-4'>
-        <RentCarSearch />
+        <AppSearch />
         <RentCarBrandsList brands={brands} />
         <RentCarCarsList cars={cars.data} />
         <SimplePagination hasNextPage={!!cars.nextPage} hasPrevPage={!!cars.lastPage} />

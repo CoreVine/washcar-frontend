@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
+import { useLocale } from "next-intl"
 
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { ClassValue } from "class-variance-authority/types"
@@ -16,6 +17,7 @@ type Props = {
 
 export const SimplePagination = ({ className, hasNextPage, hasPrevPage }: Props) => {
   const sp = useSearchParams()
+  const locale = useLocale()
   const router = useRouter()
 
   const page = sp.get("page") || "1"
@@ -34,8 +36,8 @@ export const SimplePagination = ({ className, hasNextPage, hasPrevPage }: Props)
 
   return (
     <div className={cn("flex gap-2 items-center justify-center", className)}>
-      <Button disabled={currentPage == 1} variant='outline' size='icon' icon={ArrowLeft} onClick={onPrev} />
-      <Button disabled={!hasNextPage} variant='outline' size='icon' icon={ArrowRight} onClick={onNext} />
+      <Button disabled={currentPage == 1} variant='outline' size='icon' icon={locale == "en" ? ArrowLeft : ArrowRight} onClick={onPrev} />
+      <Button disabled={!hasNextPage} variant='outline' size='icon' icon={locale == "en" ? ArrowRight : ArrowLeft} onClick={onNext} />
     </div>
   )
 }

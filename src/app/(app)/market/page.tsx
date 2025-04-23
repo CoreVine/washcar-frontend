@@ -1,10 +1,16 @@
-import MarketSearch from "./_components/search"
-import MarketCategoriesList from "./_components/categories-list"
 import MarketProductsList from "./_components/products-list"
+import MarketSearch from "./_components/search"
 
 import { getTranslations } from "next-intl/server"
-import { AdsList } from "@/components/common/ads"
+
 import { CategoriesList } from "@/components/common/categories/list"
+import { AdsList } from "@/components/common/ads"
+import { TSearchParams } from "@/types/default"
+import { AppSearch } from "@/components/common/search"
+
+type Props = {
+  searchParams: Promise<TSearchParams>
+}
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
@@ -14,14 +20,16 @@ export const generateMetadata = async () => {
   }
 }
 
-export default function Page() {
+export default async function Page({ searchParams }: Props) {
+  const params = await searchParams
+
   return (
     <div className='my-10'>
       <section className='space-y-8'>
-        <MarketSearch />
+        <AppSearch />
         <CategoriesList />
         <AdsList />
-        <MarketProductsList />
+        <MarketProductsList sp={params} />
       </section>
     </div>
   )

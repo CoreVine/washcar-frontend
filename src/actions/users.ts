@@ -1,13 +1,14 @@
 "use server"
 
+import axios from "axios"
+
 import { loadDefaultHeaders } from "@/lib/api"
-import { deleteRequest, getRequest } from "@/lib/axios"
+import { getRequest, putRequest } from "@/lib/axios"
 import { getToken } from "./auth"
 import { build } from "search-params"
 
 import { ApiError, ApiErrorData, ApiResponse, PaginatedData, TSearchParams } from "@/types/default"
 import { User } from "@/types/models"
-import axios from "axios"
 import { API_URL } from "@/lib/constants"
 
 export async function getPaginatedUsers(searchParams: TSearchParams) {
@@ -51,5 +52,18 @@ export async function deleteUserAction(userId: number, reason: string, confirm: 
     console.error(error)
     const err = error as ApiError<ApiErrorData>
     throw new Error(err?.data?.data?.message || "Failed to delete user")
+  }
+}
+
+export async function updateUserAction(userId: number, x: any) {
+  try {
+    const token = await getToken()
+    const response = await putRequest(`${API_URL}/users/${userId}`, x, loadDefaultHeaders(token))
+    const data = response.data as ApiResponse<User>
+    return data
+  } catch (error) {
+    console.error(error)
+    const err = error as ApiError<ApiErrorData>
+    throw new Error(err?.data?.data?.message || "Failed to update user")
   }
 }

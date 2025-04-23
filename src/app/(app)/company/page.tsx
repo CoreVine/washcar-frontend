@@ -8,9 +8,12 @@ import { notFound } from "next/navigation"
 import { Settings2 } from "lucide-react"
 import { AppSearch } from "@/components/common/search"
 import { SimplePagination } from "@/components/common/simple-pagination"
+import { TSearchParams } from "@/types/default"
+import { LinkBtn } from "@/components/common/link-button"
+import routes from "@/lib/route"
 
 type Props = {
-  searchParams: Promise<Record<string, string>>
+  searchParams: Promise<TSearchParams>
 }
 
 export const generateMetadata = async () => {
@@ -36,7 +39,9 @@ export default async function CarWashPage({ searchParams }: Props) {
 
       <div className='my-6 flex items-center justify-between'>
         <h1 className='text-xl text-main-black'>{t("company")}</h1>
-        <Settings2 />
+        <LinkBtn variant='outline' href={routes.pendingCompanies}>
+          {t("viewPendingCompanies")}
+        </LinkBtn>
       </div>
 
       <div className='grid grid-cols-1 gap-20 md:grid-cols-2'>

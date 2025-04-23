@@ -87,3 +87,77 @@ export async function registerAction(credentials: RegisterData, accountType: TAc
     throw new Error(e.data?.data?.message || "Registeration failed")
   }
 }
+
+export async function sendResetPasswordLinkAction(email: string) {
+  try {
+    const res = await postRequest<{ email: string; expiresAt: string }>("/auth/password/request", {
+      email,
+      accountType: "user"
+    })
+    const store = await cookies()
+    store.set("email-reset", email, {
+      expires: new Date(res.data.expiresAt)
+    })
+    return res.data
+  } catch (error) {
+    const e = error as ApiError<{ data: { message: string; status: number } }>
+    throw new Error(e.data?.data?.message || "Registeration failed")
+  }
+}
+
+export async function verifyPasswordTokenAction(code: string) {
+  console.log({ code })
+  try {
+    const store = await cookies()
+    const email = store.get("email-reset")?.value
+    if (!email) throw new Error("Email not found")
+
+    const res = await postRequest<{
+      email: string
+      verified: boolean
+      expiresAt: string
+      resetToken: string
+    }>("/auth/password/verify", {
+      email,
+      code,
+      accountType: "user"
+    })
+
+    const data = res.data
+
+    store.set("reset-token", data.resetToken, {
+      expires: new Date(data.expiresAt)
+    })
+
+    return data
+  } catch (error) {
+    const e = error as ApiError<{ data: { message: string; status: number } }>
+    console.log(e)
+    throw new Error(e.data?.data?.message || "Registeration failed")
+  }
+}
+
+export async function resetPasswordAction(password: string) {
+  try {
+    const store = await cookies()
+    const res = await postRequest<{
+      email: string
+      verified: boolean
+      expiresAt: string
+      resetToken: string
+    }>("/auth/password/reset", {
+      email: store.get("email-reset")?.value,
+      password,
+      resetToken: store.get("reset-token")?.value,
+      accountType: "user"
+    })
+    store.delete("email-reset")
+    store.delete("reset-token")
+    const data = res.data
+
+    return data
+  } catch (error) {
+    const e = error as ApiError<{ data: { message: string; status: number } }>
+    throw new Error(e.data?.data?.message || "Registeration failed")
+  }
+}

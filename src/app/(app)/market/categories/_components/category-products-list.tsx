@@ -20,6 +20,7 @@ export const CategoryProductsList = ({ id }: Props) => {
   const t = useTranslations()
 
   const { products, isProductsLoading, isProductsHasError } = useCategoryProducts(id)
+
   if (isProductsHasError) return "Error fetching products"
 
   return (

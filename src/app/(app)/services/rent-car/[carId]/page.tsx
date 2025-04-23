@@ -4,6 +4,7 @@ import RentCarDetailsRightSide from "../_components/details/right-side"
 
 import { getCarById } from "@/actions/cars"
 import { notFound } from "next/navigation"
+import { getCart } from "@/actions/cart"
 
 type Props = {
   params: Promise<{

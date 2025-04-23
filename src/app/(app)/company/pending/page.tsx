@@ -1,12 +1,18 @@
-import CompanyCard from "../_components/company-card"
+import CompanyCard from "../../services/_components/company-card"
 
+import { getPendingCompanies } from "@/actions/companies"
 import { getTranslations } from "next-intl/server"
-import { getCompanies } from "@/actions/companies"
+import { getUser } from "@/actions/auth"
+import { notFound } from "next/navigation"
 
-import { SimplePagination } from "@/components/common/simple-pagination"
-
-import { TSearchParams } from "@/types/default"
+import { Settings2 } from "lucide-react"
 import { AppSearch } from "@/components/common/search"
+import { SimplePagination } from "@/components/common/simple-pagination"
+import { TSearchParams } from "@/types/default"
+
+type Props = {
+  searchParams: Promise<TSearchParams>
+}
 
 export const generateMetadata = async () => {
   const t = await getTranslations()
@@ -16,20 +22,22 @@ export const generateMetadata = async () => {
   }
 }
 
-type Props = {
-  searchParams: Promise<TSearchParams>
-}
-
 export default async function CarWashPage({ searchParams }: Props) {
+  const user = await getUser()
   const sp = await searchParams
-  const companies = await getCompanies(sp)
+  const t = await getTranslations()
+
+  if (!user?.employeeData) return notFound()
+
+  const companies = await getPendingCompanies(sp)
 
   return (
     <div className='container mx-auto px-4 py-8'>
       <AppSearch />
 
       <div className='my-6 flex items-center justify-between'>
-        <h1 className='text-xl text-main-black'>Car wash</h1>
+        <h1 className='text-xl text-main-black'>{t("pendingCompanies")}</h1>
+        <Settings2 />
       </div>
 
       <div className='grid grid-cols-1 gap-20 md:grid-cols-2'>

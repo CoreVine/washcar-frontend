@@ -5,7 +5,7 @@ import AppLogo from "@/components/common/logo"
 
 import routes from "@/lib/route"
 
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
@@ -22,10 +22,12 @@ import { LoadingButton } from "@/components/common/loading-button"
 import { Eye, EyeOff } from "lucide-react"
 import { InputField } from "@/components/common/form/input-field"
 import { Form } from "@/components/ui/form"
+import { cn } from "@/lib/utils"
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
 
+  const locale = useLocale()
   const router = useRouter()
   const t = useTranslations()
 
@@ -74,7 +76,7 @@ export default function RegisterForm() {
 
             <div className='relative'>
               <InputField name='password' label={t("password")} placeholder='***********' control={form.control} type={showPassword ? "text" : "password"} />
-              <button type='button' className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400' onClick={() => setShowPassword(!showPassword)}>
+              <button type='button' className={cn("absolute top-10 -translate-y-1/2 p-0 m-0 flex items-center text-gray-400", locale == "en" ? "right-3" : "left-3")} onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>

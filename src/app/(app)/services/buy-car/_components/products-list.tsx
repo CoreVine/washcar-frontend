@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl"
 
 import { CarCard } from "@/components/common/cars/car-card"
 import { Car } from "@/types/models"
+import { EmptyProductState } from "@/components/common/products/empty-state"
 
 export default function BuyCarCarsList({ cars }: { cars: Car[] }) {
   const t = useTranslations()
@@ -13,6 +14,7 @@ export default function BuyCarCarsList({ cars }: { cars: Car[] }) {
   return (
     <div className='max-w-6xl mx-auto space-y-2 px-4'>
       <p className='text-lg'>{t("products")}</p>
+      {cars?.length === 0 && <EmptyProductState />}
       <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
         {cars.map((car) => (
           <CarCard key={`car-list-item-${car.car_id}`} id={car.car_id} url={routes.buyCar(car.car_id)} title={car.model} subtitle={car.model} image={car.images[0]?.image_url ?? "/defaults/cars/01.png"} />

@@ -1,14 +1,14 @@
 "use server"
 
-import { ApiError, PaginatedData } from "@/types/default"
+import { ApiError, PaginatedData, TSearchParams } from "@/types/default"
 import { Product } from "@/types/models"
 
 import { deleteRequest, getRequest } from "@/lib/axios"
-import { build } from "search-params"
-import { getToken } from "./auth"
 import { loadDefaultHeaders } from "@/lib/api"
+import { getToken } from "./auth"
+import { build } from "search-params"
 
-export async function getProducts(params: Record<string, string> = {}) {
+export async function getProducts(params: TSearchParams = {}) {
   try {
     const sp = build(params)
     const res = await getRequest<PaginatedData<Product>>(`/products?${sp}`)

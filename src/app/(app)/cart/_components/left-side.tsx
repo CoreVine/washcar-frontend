@@ -1,18 +1,16 @@
 "use client"
 
-import Image from "next/image"
-
-import { ChevronLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useCart } from "@/hooks/data/use-cart"
+
+import { NoDataLabel } from "@/components/common/no-data-label"
+import { ChevronLeft } from "lucide-react"
 import { ServiceItem } from "./service-item"
 import { ProductItem } from "./product-item"
-import { Separator } from "@/components/ui/separator"
 import { RentCarItem } from "./rent-car-item"
-import { Skeleton } from "@/components/ui/skeleton"
 import { BuyCarItem } from "./buy-car-item"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Fragment } from "react"
-import { NoDataLabel } from "@/components/common/no-data-label"
 
 export default function CartDetailsLeftSide() {
   const t = useTranslations()

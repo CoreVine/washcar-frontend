@@ -10,11 +10,12 @@ import { ProductsLoadingState } from "@/components/common/products/loading-state
 import { Fragment } from "react"
 import { EmptyProductState } from "@/components/common/products/empty-state"
 import { CreateProductModal } from "@/components/common/products/create-modal"
+import { TSearchParams } from "@/types/default"
 
-export default function MarketProductsList() {
+export default function MarketProductsList({ sp }: { sp: TSearchParams }) {
   const t = useTranslations()
 
-  const { products, isProductsLoading, isProductsHasError } = useProducts()
+  const { products, isProductsLoading, isProductsHasError } = useProducts(sp)
 
   if (isProductsHasError) return "Error fetching products"
 
@@ -34,7 +35,7 @@ export default function MarketProductsList() {
           ) : (
             <section className='grid xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'>
               {products?.data?.map((product) => (
-                <ProductCard key={`product-card-market-${product.product_id}`} id={product.product_id} title={product.product_name} subtitle={product.price} image={product.images?.[0].image_url ?? DEFAULT_USER_IMAGE} />
+                <ProductCard key={`product-card-market-${product.product_id}`} id={product.product_id} title={product.product_name} subtitle={product.price} image={product.images?.[0]?.image_url ?? DEFAULT_USER_IMAGE} />
               ))}
             </section>
           )}

@@ -1,16 +1,20 @@
 "use client"
 
+import routes from "@/lib/route"
 import Image from "next/image"
-
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { DEFAULT_USER_IMAGE } from "@/lib/constants"
 
 import { useUser } from "@/hooks/auth/use-user"
 import { useRouter } from "next/navigation"
-import routes from "@/lib/route"
 import { useTranslations } from "next-intl"
 import { useLogout } from "@/hooks/auth/use-logout"
+
 import { cn } from "@/lib/utils"
+
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+
+import { LinkBtn } from "@/components/common/link-button"
+import { LogIn, UserPlus } from "lucide-react"
+import { DEFAULT_USER_IMAGE } from "@/lib/constants"
 
 export default function NavbarUserDropdown() {
   const user = useUser()
@@ -18,6 +22,19 @@ export default function NavbarUserDropdown() {
   const t = useTranslations()
 
   const logoutMutation = useLogout()
+
+  if (!user?.user) {
+    return (
+      <div className='flex gap-2'>
+        <LinkBtn href={routes.login} icon={LogIn} variant='outline'>
+          {t("login")}
+        </LinkBtn>
+        <LinkBtn href={routes.register} icon={UserPlus}>
+          {t("register")}
+        </LinkBtn>
+      </div>
+    )
+  }
 
   return (
     <DropdownMenu>

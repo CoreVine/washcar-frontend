@@ -3,7 +3,7 @@
 import Link from "next/link"
 import AppLogo from "@/components/common/logo"
 
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { useState } from "react"
 import { useLogin } from "@/hooks/auth/use-login"
 import { useForm } from "react-hook-form"
@@ -11,14 +11,17 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { BackgroundBubbles } from "@/components/common/bubbles-effect"
-import { LoginSchema } from "@/schema/auth"
-import { Form } from "@/components/ui/form"
-import { InputField } from "@/components/common/form/input-field"
 import { LoadingButton } from "@/components/common/loading-button"
+import { LoginSchema } from "@/schema/auth"
 import { Eye, EyeOff } from "lucide-react"
+import { InputField } from "@/components/common/form/input-field"
+import { Form } from "@/components/ui/form"
+import { cn } from "@/lib/utils"
 
 export default function LoginForm() {
   const t = useTranslations()
+  const locale = useLocale()
+
   const [showPassword, setShowPassword] = useState(false)
 
   const form = useForm({
@@ -28,6 +31,7 @@ export default function LoginForm() {
       password: "0552320541"
     }
   })
+
   const mutation = useLogin()
 
   const handleLogin = () => {
@@ -55,8 +59,8 @@ export default function LoginForm() {
 
             <div>
               <div className='relative'>
-                <InputField name='password' label={t("password")} control={form.control} type={showPassword ? "text" : "password"} placeholder='••••••••' className='bg-gray-100 pr-10' />
-                <button type='button' className='absolute right-3 top-10 -translate-y-1/2 p-0 m-0 flex items-center text-gray-400' onClick={() => setShowPassword(!showPassword)}>
+                <InputField name='password' label={t("password")} control={form.control} type={showPassword ? "text" : "password"} placeholder='••••••••' className={cn("bg-gray-100", locale == "en" ? "pr-10" : "pl-10")} />
+                <button type='button' className={cn("absolute top-10 -translate-y-1/2 p-0 m-0 flex items-center text-gray-400", locale == "en" ? "right-3" : "left-3")} onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
@@ -68,7 +72,7 @@ export default function LoginForm() {
               </div>
             </div>
 
-            <LoadingButton type='submit' className='w-full bg-main hover:bg-blue-600 text-white rounded-3xl py-6'>
+            <LoadingButton loading={mutation.isPending} type='submit' className='w-full bg-main hover:bg-blue-600 text-white rounded-3xl py-6'>
               {t("login")}
             </LoadingButton>
           </form>
